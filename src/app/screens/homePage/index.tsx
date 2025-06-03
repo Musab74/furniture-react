@@ -1,5 +1,21 @@
-import { Container } from "@mui/material";
+import Statistics from "./statistics";
+import Rooms from "./rooms";
+import PopularFurnitures from "./popularFurnitures";
+import HowItWorks from "./howItWorks";
+import ClientReview from "./clientReview";
+import ComingSoon from "./comingSoon";
+import "../../../css/home.css"
 
-export function HomePage() {
-    return <Container>HomePage</Container>
+
+export default function HomePage() {
+    return (
+        <div className={"homepage"}>
+            <Statistics />
+            <Rooms />
+            <PopularFurnitures />
+            <HowItWorks />
+            <ClientReview />
+            <ComingSoon />
+        </div>
+    );
 }

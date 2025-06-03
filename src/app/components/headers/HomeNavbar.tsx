@@ -1,33 +1,8 @@
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import AnalogClock from "./AnalogClock";
 
-type SeeMoreProps = {
-    label?: string;
-    onClick?: () => void;
-  };
-
-  const SeeMore: React.FC<SeeMoreProps> = ({ label = "Read More", onClick }) => {
-    return (
-      <Button
-        onClick={onClick}
-        endIcon={<ArrowForwardIcon />}
-        sx={{
-          color: 'white',
-          className: 'arrow-function',
-          textTransform: 'none',
-          fontWeight: 'bold',
-          fontSize: '16px',
-          '&:hover': {
-            backgroundColor: 'transparent',
-            textDecoration: 'underline',
-          },
-        }}
-      >
-        {label}
-      </Button>
-    );
-  };
 
 export function HomeNavbar() {
     const AuthMember = 1;
@@ -38,9 +13,10 @@ export function HomeNavbar() {
                 >
                     <Box>
                         <NavLink to="/">
-                            <p className="brand-name">FurniSpace</p>
+                            <p className="brand-name">Auro</p>
                         </NavLink>
                     </Box>
+                    
                     <Stack
                         className="links"
                     >
@@ -62,7 +38,7 @@ export function HomeNavbar() {
                         ) : null}
                     
                         <Box className={"hover-line"}>
-                            <NavLink to="/about" activeClassName={"underline"}>About Us</NavLink>
+                            <NavLink to="/reviews" activeClassName={"underline"}>Reviews</NavLink>
                         </Box>
 
                         {/* Basket */}
@@ -78,15 +54,7 @@ export function HomeNavbar() {
                 </Stack>
                 <Stack className="header-frame">
                     <Stack className="detail">
-                        <Box className="head-main-text" >
-                            Having a home you love<br /> means having furnishing that <br />you’re proud of. We are proud <br />to bring you trendy furniture<br /> for every room in the house,<br /> with the added bonus.
-                                                    </Box>
-                            <SeeMore onClick={() => console.log("Navigating...")} />
-                        {/* <Box className="wel-txt">The Choice, not just a choice</Box>
-                        
-                    <Box className="service-txt">24  hours service</Box> */}
-                    
-                    
+        
                         <Box className="signup" ></Box>
                         {!AuthMember ? (
                             <Button variant={"contained"}
@@ -95,6 +63,9 @@ export function HomeNavbar() {
                                 Sign Up</Button>) : null}
 
                     </Stack>
+                    <Box>
+                        <AnalogClock></AnalogClock>
+                    </Box>
                     <Box className="logo-frame">
                         <div className="logo-header">
                             Make a room<br />comfortable &<br />elegant

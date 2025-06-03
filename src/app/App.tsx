@@ -2,31 +2,29 @@ import React from "react";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { RippleBadge } from "./MaterialTheme/styled";
 import { Link, Route, Switch, useLocation } from "react-router-dom";
-import { HomePage } from "./screens/homePage";
-import { ProductsPage } from "./screens/productsPage";
+import HomePage from "./screens/homePage";
 import { OrdersPage } from "./screens/ordersPage";
 import { UserPage } from "./screens/userPage";
 import { HomeNavbar } from "./components/headers/HomeNavbar";
-import { OtherNavbar } from "./components/headers/OtherNavbar";
-import Footer from "./components/footer"; 
+import OtherNavbar from "./components/headers/OtherNavbar";
+import Footer from "./components/footer";
 import { HelpPage } from "./screens/helpPage";
+import { ReviewsPage } from "./screens/reviewsPage";
 import '../css/app.css';
 import '../css/navbar.css';
 import '../css/footer.css'
+import FurnituresPage from "./screens/FurnituresPage";
 
 
-//background: url('/public/img/homePage.jpg')
 function App() {
- const location = useLocation(); // qaytarishi object
- console.log(location);
- 
+  const location = useLocation(); // qaytarishi object 
 
   return (
     <div>
-   {location.pathname === "/" ? <HomeNavbar/> : <OtherNavbar/>}
+      {location.pathname === "/" ? <HomeNavbar /> : <OtherNavbar />}
       <Switch>
-        <Route path="/products">
-          <ProductsPage />
+        <Route path="/furnitures">
+          <FurnituresPage />
         </Route>
         <Route path="/orders">
           <OrdersPage />
@@ -37,11 +35,15 @@ function App() {
         <Route path="/help">
           <HelpPage />
         </Route>
-        <Route path="/">
+        <Route path="/reviews">
+          <ReviewsPage />
+        </Route>
+        <Route exact path="/"> 
           <HomePage />
         </Route>
       </Switch>
-      <Footer/>
+
+      <Footer />
     </div>
   )
 }
