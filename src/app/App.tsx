@@ -6,13 +6,13 @@ import HomePage from "./screens/homePage";
 import { HomeNavbar } from "./components/headers/HomeNavbar";
 import OtherNavbar from "./components/headers/OtherNavbar";
 import Footer from "./components/footer";
-import { ReviewsPage } from "./screens/reviewsPage";
 import '../css/app.css';
 import '../css/navbar.css';
 import '../css/footer.css'
 import FurnituresPage from "./screens/FurnituresPage";
 import UserPage from "./screens/userPage";
 import OrdersPage from "./screens/ordersPage";
+import ReviewsPage from "./screens/reviewsPage";
 
 
 function App() {
