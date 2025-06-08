@@ -3,17 +3,16 @@ import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { RippleBadge } from "./MaterialTheme/styled";
 import { Link, Route, Switch, useLocation } from "react-router-dom";
 import HomePage from "./screens/homePage";
-import { OrdersPage } from "./screens/ordersPage";
-import { UserPage } from "./screens/userPage";
 import { HomeNavbar } from "./components/headers/HomeNavbar";
 import OtherNavbar from "./components/headers/OtherNavbar";
 import Footer from "./components/footer";
-import { HelpPage } from "./screens/helpPage";
 import { ReviewsPage } from "./screens/reviewsPage";
 import '../css/app.css';
 import '../css/navbar.css';
 import '../css/footer.css'
 import FurnituresPage from "./screens/FurnituresPage";
+import UserPage from "./screens/userPage";
+import OrdersPage from "./screens/ordersPage";
 
 
 function App() {
@@ -31,9 +30,6 @@ function App() {
         </Route>
         <Route path="/member-page">
           <UserPage />
-        </Route>
-        <Route path="/help">
-          <HelpPage />
         </Route>
         <Route path="/reviews">
           <ReviewsPage />

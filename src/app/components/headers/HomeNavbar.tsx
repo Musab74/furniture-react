@@ -2,6 +2,7 @@ import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import AnalogClock from "./AnalogClock";
+import Basket from "./Basket";
 
 
 export function HomeNavbar() {
@@ -41,7 +42,7 @@ export function HomeNavbar() {
                             <NavLink to="/reviews" activeClassName={"underline"}>Reviews</NavLink>
                         </Box>
 
-                        {/* Basket */}
+                        < Basket />
 
                         {!AuthMember ? (<Box><Button variant="contained" className="login-button">Login</Button></Box>) : (
                             <img className="user-avatar"
