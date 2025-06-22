@@ -21,7 +21,7 @@ export default function Footer() {
           <Stack flexDirection={"column"} style={{ width: "340px" }}>
             <Box>
                 <h1 className="header-one">
-                Contact With US
+                Contact Auro
                 </h1>
              <h2 className="header-two">   
              Feel free to ask<br /> Something <br /> we are here
@@ -45,8 +45,8 @@ export default function Footer() {
                   <Link to="/">Home</Link>
                   <Link to="/furniture">Furnitures</Link>
                   {authMember && <Link to="/orders">Orders</Link>}
-                  <Link to="/help">Accessories</Link>
-                  <Link to="/help">Help</Link>
+                  <Link to="/review">Reviews</Link>
+                  <Link to="/help">My Page</Link>
                 </Box>
               </Box>
             </Stack>

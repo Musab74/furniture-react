@@ -28,17 +28,21 @@
   }
   
   .header-one {
-      width: 191px;
-      color: var(--Neutral-White, #FFF);
-      text-align: center;
-      margin-top: -70px;
-      /* Button/Button - 24 */
-      font-family: Inter;
-      font-size: 24px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 36px;
-  }
+    width: 191px;
+    color: var(--Neutral-White, #FFF);
+    text-align: center;
+    margin-top: -70px;
+    margin-left: -8px;
+    font-family: Inter;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 36px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .header-two {
     width: 660px;
     height: auto;
@@ -47,7 +51,7 @@
     margin-bottom: -20px;
     /* SH/SH - 64 */
     font-family: Syne;
-    font-size: 50px;
+    font-size: 40px;
     font-style: normal;
     font-weight: 700;
     line-height: 72px;

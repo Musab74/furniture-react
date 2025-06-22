@@ -1,24 +1,24 @@
 .order-page {
     width: 100%;
     height: auto;
-    background: #f8f8ff;
+    background: #E8F5E9; /* Very light green background */
     display: flex;
-}
-
-.order-page .order-container {
+  }
+  
+  .order-page .order-container {
     margin-top: 50px;
     margin-bottom: 50px;
     display: flex;
     align-items: flex-start;
     flex-direction: row;
-}
-
-.order-page .order-left {
+  }
+  
+  .order-page .order-left {
     width: 860px;
     height: auto;
-}
-
-.order-page .order-right {
+  }
+  
+  .order-page .order-right {
     width: 100%;
     height: auto;
     margin-top: 136px;
@@ -26,261 +26,267 @@
     display: flex;
     flex-direction: column;
     align-self: self-end;
-}
-
-.order-info-box {
+  }
+  
+  .order-info-box {
     margin-top: 75px;
     border-radius: 16px;
-    padding: 20px;  
-    background: #f6f2ff;
-	box-shadow: 15px 14px 4px rgba(0, 0, 0, 0.25), inset -1px 0px 16px 13px rgb(24 23 112 / 20%);
+    padding: 20px;
+    background: #F0FDF4; /* Lighter, almost white green background for boxes */
+    box-shadow: 15px 14px 4px rgba(0, 0, 0, 0.15),
+      inset -1px 0px 16px 13px rgba(76, 175, 80, 0.2); /* Green tinted inset shadow */
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.member-box {
+  }
+  
+  .member-box {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-}
-
-.order-user-img {
+  }
+  
+  .order-user-img {
     position: relative;
     width: 100px;
     height: 100px;
-}
-
-.order-user-avatar {
+  }
+  
+  .order-user-avatar {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
-    border: 4px solid #f8f8fe;
+    border: 4px solid #66BB6A; /* Green border */
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
-
-.order-user-icon-box {
+  }
+  
+  .order-user-icon-box {
     position: absolute;
     bottom: 0;
     right: 0;
     width: 24px;
     height: 24px;
-    background-color: #f8f8fe;
+    background-color: #4CAF50; /* Primary green for the icon background */
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.order-user-prof-img {
+  }
+  
+  .order-user-prof-img {
     width: 18px;
     height: 18px;
-}
-
-.order-user-name {
+    filter: brightness(0) invert(1); /* Makes the icon white on green background */
+  }
+  
+  .order-user-name {
     font-size: 18px;
     font-weight: 600;
     color: #333;
-}
-
-.order-user-prof {
+  }
+  
+  .order-user-prof {
     font-size: 14px;
     font-weight: 400;
-    color: gray;
-}
-
-.liner {
+    color: #616161; /* Slightly darker gray for better contrast */
+  }
+  
+  .liner {
     width: 80%;
     height: 1px;
-    background: #ddd;
+    background: #B2DFDB; /* Light teal-green divider */
     margin: 15px 0;
-}
-
-.order-user-address {
+  }
+  
+  .order-user-address {
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 14px;
     color: #555;
-}
-
-.payment-info-box {
+  }
+  
+  .payment-info-box {
     border-radius: 16px;
     padding: 20px;
-    background: #f6f2ff;
-	box-shadow: 15px 14px 4px rgba(0, 0, 0, 0.25), inset -1px 0px 16px 13px rgb(24 23 112 / 20%);
+    background: #F0FDF4; /* Lighter, almost white green background for boxes */
+    box-shadow: 15px 14px 4px rgba(0, 0, 0, 0.15),
+      inset -1px 0px 16px 13px rgba(76, 175, 80, 0.2); /* Green tinted inset shadow */
     margin-top: 20px;
-}
-
-.payment-input {
+  }
+  
+  .payment-input {
     margin-bottom: 12px;
-}
-
-.payment-input-field {
+  }
+  
+  .payment-input-field {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #A5D6A7; /* Light green border for inputs */
     border-radius: 8px;
     font-size: 14px;
-}
-
-.payment-input-row {
+  }
+  
+  .payment-input-row {
     display: flex;
     gap: 10px;
     margin-bottom: 12px;
-}
-
-.payment-input-half {
+  }
+  
+  .payment-input-half {
     flex: 1;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #A5D6A7; /* Light green border for inputs */
     border-radius: 8px;
     font-size: 14px;
-}
-
-.payment-methods {
+  }
+  
+  .payment-methods {
     display: flex;
     justify-content: space-around;
     align-items: center;
     margin-top: 15px;
-}
-
-.payment-method-icon {
+  }
+  
+  .payment-method-icon {
     width: 40px;
     height: auto;
-}
-
-/* Main Order Box */
-.order-main-box {
+    /* You might want to tint these icons green if they are vector graphics */
+  }
+  
+  /* Main Order Box */
+  .order-main-box {
     border-radius: 16px;
     width: 100%;
-	box-shadow: 15px 14px 4px rgba(0, 0, 0, 0.25), inset -1px 0px 16px 13px rgb(24 23 112 / 20%);
+    background: #F0FDF4; /* Lighter, almost white green background for boxes */
+    box-shadow: 15px 14px 4px rgba(0, 0, 0, 0.15),
+      inset -1px 0px 16px 13px rgba(76, 175, 80, 0.2); /* Green tinted inset shadow */
     padding: 20px;
     margin-bottom: 20px;
-}
-
-/* Scrollable Dish List */
-.order-main-box .order-box-scroll {
+  }
+  
+  /* Scrollable Dish List */
+  .order-main-box .order-box-scroll {
     max-height: 250px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 15px;
     margin-bottom: 20px;
-}
-
-/* Dish Line */
-.order-main-box .orders-name-price {
+  }
+  
+  /* Dish Line */
+  .order-main-box .orders-name-price {
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-/* Dish Image */
-.order-main-box .order-dish-img {
+  }
+  
+  /* Dish Image */
+  .order-main-box .order-dish-img {
     width: 50px;
     height: 50px;
     border-radius: 12px;
     object-fit: cover;
     margin-right: 10px;
-}
-
-/* Dish Name */
-.order-main-box .title-dish {
+  }
+  
+  /* Dish Name */
+  .order-main-box .title-dish {
     flex: 1;
     font-size: 16px;
     font-weight: 600;
     color: #333;
-}
-
-/* Price Box */
-.order-main-box .price-box {
+  }
+  
+  /* Price Box */
+  .order-main-box .price-box {
     display: flex;
     align-items: center;
     gap: 8px;
-}
-
-/* Total Price and Buttons Container */
-.order-main-box .total-price-box {
+  }
+  
+  /* Total Price and Buttons Container */
+  .order-main-box .total-price-box {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 10px;
-}
-
-/* Subsection for prices */
-.order-main-box .box-total {
+  }
+  
+  /* Subsection for prices */
+  .order-main-box .box-total {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
-}
-
-/* Cancel Button */
-.order-main-box .cancel-button {
-    background-color: #c7a97f !important;
-    color: #f8f8fe !important;
+  }
+  
+  /* Cancel Button */
+  .order-main-box .cancel-button {
+    background-color: #EF5350 !important; /* A distinct soft red for cancel */
+    color: #ffffff !important;
     border-radius: 8px !important;
     padding: 8px 16px !important;
     text-transform: none !important;
     box-shadow: none !important;
-}
-
-/* Payment Button */
-.order-main-box .pay-button {
-    background-color: #7acb8f !important;
-    color: #f8f8fe !important;
+  }
+  
+  /* Payment Button */
+  .order-main-box .pay-button {
+    background-color: #4CAF50 !important; /* Primary green for payment */
+    color: #ffffff !important;
     border-radius: 8px !important;
     padding: 8px 16px !important;
     text-transform: none !important;
     box-shadow: none !important;
-}
-
-/* Nice Scrollbar for Order List */
-.order-main-box .order-box-scroll::-webkit-scrollbar {
+  }
+  
+  /* Nice Scrollbar for Order List */
+  .order-main-box .order-box-scroll::-webkit-scrollbar {
     width: 6px;
-}
-
-.order-main-box .order-box-scroll::-webkit-scrollbar-thumb {
-    background-color: #ccc;
+  }
+  
+  .order-main-box .order-box-scroll::-webkit-scrollbar-thumb {
+    background-color: #A5D6A7; /* Light green scrollbar thumb */
     border-radius: 6px;
-}
-
-.order-main-box .box-total {
+  }
+  
+  .order-main-box .box-total {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     gap: 8px;
     font-size: 14px;
     color: #555;
-} 
-
-/* Date Completion */
-.order-main-box .data-compl {
+  }
+  
+  /* Date Completion */
+  .order-main-box .data-compl {
     font-size: 14px;
     color: #888;
-}
-
-/* Verify Button */
-.order-main-box .verify-button {
-    background-color: #7acb8f !important;
-    color: #f8f8fe !important;
+  }
+  
+  /* Verify Button */
+  .order-main-box .verify-button {
+    background-color: #4CAF50 !important; /* Primary green for verify button */
+    color: #ffffff !important;
     border-radius: 8px !important;
     padding: 8px 16px !important;
     text-transform: none !important;
     box-shadow: none !important;
-}
-
-.order-main-box .process-order-main-box .order-box-scroll::-webkit-scrollbar {
+  }
+  
+  .order-main-box .process-order-main-box .order-box-scroll::-webkit-scrollbar {
     width: 6px;
-}
-
-.order-main-box .order-box-scroll::-webkit-scrollbar-thumb {
-    background-color: #ccc;
+  }
+  
+  .order-main-box .order-box-scroll::-webkit-scrollbar-thumb {
+    background-color: #A5D6A7; /* Light green scrollbar thumb */
     border-radius: 6px;
-}
+  }
