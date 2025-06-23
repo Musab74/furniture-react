@@ -47,7 +47,7 @@ const ClientReviews = () => {
         ))}
       </div>
       <div className="show-more">
-        <span>Show More</span>
+       <a href="/reviews"> <span>Show More</span></a>
         <span className="arrow">→</span>
       </div>
     </section>

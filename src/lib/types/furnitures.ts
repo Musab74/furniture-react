@@ -1,21 +1,21 @@
 import { ObjectId } from "mongodb";
-import { FurnitureCollection, FurnitureSize, FurnitureStatus } from "../enums/furniture.enum";
+import { FurnitureCapacity, FurnitureCollection, FurnitureSize, FurnitureStatus } from "../enums/furniture.enum";
 
 export interface Furniture {
-    _id: ObjectId;
+    _id: string;
     furnitureStatus: FurnitureStatus;
     furnitureCollection: FurnitureCollection;
+    furnitureRanking: number;
     furnitureName: string;
     furniturePrice: number;
     furnitureLeftCount: number;
     furnitureSize: FurnitureSize;
-    furnitureVolume: number;
+    furnitureCapacity: FurnitureCapacity;  
     furnitureDesc?: string;
     furnitureImages: string[];
     furnitureViews: number;
-    createdAt: Date;
-    updatedAt: Date;
 }
+
 
 export interface FurnitureInquiry {
     order: string;

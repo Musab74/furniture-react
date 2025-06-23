@@ -1,24 +1,38 @@
 import React from "react";
+import { useHistory } from "react-router-dom"; 
 
 const rooms = [
   {
     name: "Living Room",
     image: "/img/livingRoom.jpeg",
     bgColor: "#2C2C2C",
+    collection: "LIVING_ROOM",
   },
   {
     name: "Dining Room",
     image: "/img/diningRoom.jpeg",
     bgColor: "#4C5C45",
+    collection: "DINING_ROOM",
   },
   {
     name: "Office Room",
     image: "/img/OfficeRoom.jpeg",
     bgColor: "#2C2C2C",
+    collection: "OFFICE",
   },
 ];
 
 const RoomsSection = () => {
+  const history = useHistory();
+
+  const handleRoomClick = (collection: string) => {
+    history.push(`/furnitures?collection=${collection}`);
+  };
+
+  const handleShowAll = () => {
+    history.push(`/furnitures?collection=ALL`);
+  };
+
   return (
     <div className="rooms-container">
       <div className="rooms-left">
@@ -26,7 +40,8 @@ const RoomsSection = () => {
           <div
             key={room.name}
             className={`room-card ${index === 1 ? "middle-card" : ""}`}
-            style={{ backgroundColor: room.bgColor }}
+            style={{ backgroundColor: room.bgColor, cursor: "pointer" }}
+            onClick={() => handleRoomClick(room.collection)}
           >
             <img src={room.image} alt={room.name} className="room-img" />
             <span className="room-title">{room.name}</span>
@@ -40,9 +55,9 @@ const RoomsSection = () => {
           We are proud to bring you trendy furniture for every room in the
           house, with the added bonus.
         </p>
-        <a href="#" className="show-link">
+        <span onClick={handleShowAll} className="show-link" style={{ cursor: "pointer" }}>
           Show all kinds <span className="arrow">→</span>
-        </a>
+        </span>
       </div>
     </div>
   );

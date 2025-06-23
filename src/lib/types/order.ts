@@ -1,22 +1,22 @@
-import { ObjectId } from "mongodb";
 import { OrderStatus } from "../enums/order.enum";
 import { Furniture } from "./furniture";
 
 export interface OrderItem {
-    _id: ObjectId;
-    itemQuantity:Number;
-    itemPrice: Number;
-    orderId: ObjectId;
-    furnitureId: ObjectId;
+    _id: string;
+    itemQuantity:number;
+    itemPrice: number;
+    orderId: string;
+    productId: string;
     createAt:Date;
     updatedAt:Date;
 }
 
 export interface Order{
-    _id: ObjectId;
+    _id: string;
     orderTotal: number;
-    orderStatus: OrderStatus;
-    memberId: ObjectId;
+    orderDelivery: number;
+    ordetStatus: OrderStatus;
+    memberId: string;
     createAt: Date;
     updatedAt: Date;
     // From aggregations
@@ -27,8 +27,8 @@ export interface Order{
 export interface OrderItemInput {
     itemQuantity: number,
     itemPrice: number,
-    furnitureId:ObjectId,
-    orderId?:ObjectId;
+    furnitureId:string,
+    orderId?:string;
 }
 
 export interface OrderInquiry {
@@ -41,4 +41,3 @@ export interface OrderUpdateInput {
     orderId: string;
     orderStatus: OrderStatus;
 }
-

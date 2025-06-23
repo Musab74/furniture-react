@@ -9,22 +9,9 @@ class MemberService {
     this.path = serverApi
   }
 
-  public async getTopUsers(): Promise<Member[]> {
+  public async getStore(): Promise<Member> {
     try {
-      const url = this.path + "/member/top-users";
-      const result = await axios.get(url);
-      console.log("getTopUsers", result);
-
-      return result.data
-    } catch (err) {
-      console.log("Error, getProduct:", err);
-      throw err;
-    }
-  }
-
-  public async getRestaurant(): Promise<Member> {
-    try {
-      const url = this.path + "/member/restaurant";
+      const url = this.path + "/member/store";
       const result = await axios.get(url);
       console.log("getTopUsers", result);
 

@@ -1,207 +1,103 @@
-// import React, { useState } from 'react';
-// import StarIcon from '@mui/icons-material/Star';
-
-// const ChosenFurniture: React.FC = () => {
-//   const [selectedImage, setSelectedImage] = useState<string>("/img/livingR.png");
-//   const [quantity, setQuantity] = useState<number>(1);
-//   const reviews = [
-//     {
-//       user: "John",
-//       comment: "Very comfortable and stylish!",
-//       rating: 5,
-//     },
-//     {
-//       user: "Sara",
-//       comment: "Love it, just what I needed.",
-//       rating: 4,
-//     },
-//   ];
-
-//   const images: string[] = [
-//     "/img/livingR.png",
-//     "/img/kitchen.png",
-//     "/img/livingR.png",
-//     "/img/livingR.png",
-//     "/img/livingR.png",
-//   ];
-
-//   const colors: string[] = ['#90a4ae', '#cfd8dc', '#ef9a9a', '#bcaaa4'];
-
-//   const relatedProducts = [
-//     { image: '/img/camera.png', title: 'Camera', price: '$11.70' },
-//     { image: '/img/headphones.png', title: 'Wireless headphones', price: '$11.70' },
-//     { image: '/img/controller.png', title: 'Play game', price: '$11.70' },
-//     { image: '/img/laptop.png', title: 'Tablet as a laptop', price: '$11.70' },
-//   ];
-
-//   return (
-//     <div className="product-container">
-//       <div className='product-box'>
-//       <div className="image-section">
-//         <img src={selectedImage} alt="Product" className="main-image" />
-//         <div className="thumbnail-row">
-//           {images.map((img, idx) => (
-//             <img
-//               key={idx}
-//               src={img}
-//               alt={`thumb-${idx}`}
-//               className={`thumbnail ${selectedImage === img ? 'selected' : ''}`}
-//               onClick={() => setSelectedImage(img)}
-//             />
-//           ))}
-//         </div>
-//       </div>
-
-//       <div className="info-section">
-//         <h2 className="title">Meryl Lounge Chair</h2>
-//         <h3 className="price">$149.99</h3>
-//         <div className="rating">
-//           {[...Array(5)].map((_, i) => (
-//             <StarIcon key={i} sx={{ color: i < 4 ? '#FFD700' : '#ddd', fontSize: 16 }} />
-//           ))}
-//           <span className="rating-text">4.6 / 5.0 (556)</span>
-//         </div>
-
-//         <p className="description">
-//           The gently curved lines accentuated by sewn details are kind to your body and pleasant to look at.
-//           Also, there’s a tilt and height-adjusting mechanism that’s built to outlast years of ups and downs.
-//         </p>
-
-//         <div className="quantity-controls">
-//           <button onClick={() => setQuantity(q => Math.max(1, q - 1))}>-</button>
-//           <span>{quantity}</span>
-//           <button onClick={() => setQuantity(q => q + 1)}>+</button>
-//         </div>
-
-//         <button className="add-button">Add to Cart</button>
-//         <div className="shipping-note">
-//           Free 3–5 day shipping · Tool-free assembly · 30-day trial
-//         </div>
-//       </div>
-//       </div>
-
-//       {/* Customer Reviews Section */}
-//       <div className="customer-reviews">
-//         <h3>Customer Reviews</h3>
-//         {reviews.length === 0 ? (
-//           <p className="no-reviews">No reviews yet</p>
-//         ) : (
-//           reviews.map((r, i) => (
-//             <div key={i} className="review">
-//               <strong>{r.user}</strong> - {r.rating}⭐<br />
-//               <p>{r.comment}</p>
-//             </div>
-//           ))
-//         )}
-//         <button className="write-review-button">Write a review</button>
-//       </div>
-
-//       {/* Related Products Section */}
-//       <div className="related-products">
-//         <h3>Related product</h3>
-//         <div className="related-grid">
-//           {relatedProducts.map((product, idx) => (
-//             <div className="related-card" key={idx}>
-//               <img src={product.image} alt={product.title} />
-//               <h4>{product.title}</h4>
-//               <p>{product.price}</p>
-//               <div className="related-stars">
-//                 {[...Array(5)].map((_, i) => (
-//                   <StarIcon key={i} sx={{ color: '#ddd', fontSize: 16 }} />
-//                 ))}
-//               </div>
-//               <button className="add-to-cart-button">Add to cart</button>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ChosenFurniture;
-
-
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import {Dispatch} from 'redux'
 import StarIcon from '@mui/icons-material/Star';
+import { Member } from '../../../lib/types/member';
+import { Furniture } from '../../../lib/types/furniture';
+import { createSelector } from '@reduxjs/toolkit';
+import { setChosenFurniture, setStore } from './slice';
+import { retrieveChosenFurniture, retrieveStore } from './selector';
+import { CartItem } from '../../../lib/types/search';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import ProductService from '../../services/ProductService';
+import MemberService from '../../services/memberService';
+import { serverApi } from '../../../lib/config';
 
-const ChosenFurniture: React.FC = () => {
-  const [selectedImage, setSelectedImage] = useState<string>("/img/livingR.png");
+const actionDispatch = (dispatch: Dispatch) => ({
+  setStore: (data: Member) => dispatch(setStore(data)),
+  setChosenFurniture: (data: Furniture) => dispatch(setChosenFurniture(data)),
+});
+
+const chosenFurnitureRetriever = createSelector(
+  retrieveChosenFurniture,
+  (ChosenFurniture) => ({ ChosenFurniture })
+);
+
+const storeRetreiver = createSelector(
+  retrieveStore,
+  (store) => ({ store })
+);
+
+interface ChosenFurnitureProps {
+  onAdd: (item: CartItem) => void;
+}
+
+const ChosenFurniture: React.FC<ChosenFurnitureProps> = ({ onAdd }) => {
+  const { furnitureId } = useParams<{ furnitureId: string }>();
+  const { setStore, setChosenFurniture } = actionDispatch(useDispatch());
+  const { ChosenFurniture } = useSelector(chosenFurnitureRetriever);
+  const { store } = useSelector(storeRetreiver);
+
+  const [selectedImage, setSelectedImage] = useState<string>('');
   const [quantity, setQuantity] = useState<number>(1);
   const [showReviewForm, setShowReviewForm] = useState<boolean>(false);
   const [reviewText, setReviewText] = useState<string>('');
   const [reviewRating, setReviewRating] = useState<number>(0);
-  const [reviews, setReviews] = useState([
-    {
-      user: "John",
-      comment: "Very comfortable and stylish!",
-      rating: 5,
-    },
-    {
-      user: "Sara",
-      comment: "Love it, just what I needed.",
-      rating: 4,
-    },
-  ]);
 
-  const images: string[] = [
-    "/img/livingR.png",
-    "/img/kitchen.png",
-    "/img/livingR.png",
-    "/img/livingR.png",
-    "/img/livingR.png",
-  ];
+  useEffect(() => {
+    const productService = new ProductService();
+    const memberService = new MemberService();
 
-  const colors: string[] = ['#90a4ae', '#cfd8dc', '#ef9a9a', '#bcaaa4'];
+    productService.getFurniture(furnitureId).then(data => {
+      setChosenFurniture(data);
+      setSelectedImage(`${serverApi}/${data.furnitureImages[0]}`);
+    }).catch(console.error);
 
-  const relatedProducts = [
-    { image: '/img/camera.png', title: 'Camera', price: '$11.70' },
-    { image: '/img/headphones.png', title: 'Wireless headphones', price: '$11.70' },
-    { image: '/img/controller.png', title: 'Play game', price: '$11.70' },
-    { image: '/img/laptop.png', title: 'Tablet as a laptop', price: '$11.70' },
-  ];
+    memberService.getStore().then(setStore).catch(console.error);
+  }, [furnitureId]);
 
-  const handleReviewSubmit = () => {
-    if (reviewText && reviewRating > 0) {
-      setReviews([...reviews, { user: "You", comment: reviewText, rating: reviewRating }]);
-      setReviewText('');
-      setReviewRating(0);
-      setShowReviewForm(false);
-    }
+  if (!ChosenFurniture) return null;
+
+  const handleAddToCart = () => {
+    const cartItem: CartItem = {
+      _id: ChosenFurniture._id,
+      name: ChosenFurniture.furnitureName,
+      price: ChosenFurniture.furniturePrice,
+      quantity,
+      image: `${serverApi}/${ChosenFurniture.furnitureImages[0]}`,
+    };
+    onAdd(cartItem);
   };
 
   return (
-    <div className="product-container">
-      <div className='product-box'>
+    <div className="FurnitureFurniture-container">
+      <div className='FurnitureFurniture-box'>
         <div className="image-section">
-          <img src={selectedImage} alt="Product" className="main-image" />
+          <img src={selectedImage} alt={ChosenFurniture.furnitureName} className="main-image" />
           <div className="thumbnail-row">
-            {images.map((img, idx) => (
+            {ChosenFurniture.furnitureImages.map((img, idx) => (
               <img
                 key={idx}
-                src={img}
+                src={`${serverApi}/${img}`}
                 alt={`thumb-${idx}`}
-                className={`thumbnail ${selectedImage === img ? 'selected' : ''}`}
-                onClick={() => setSelectedImage(img)}
+                className={`thumbnail ${selectedImage === `${serverApi}/${img}` ? 'selected' : ''}`}
+                onClick={() => setSelectedImage(`${serverApi}/${img}`)}
               />
             ))}
           </div>
         </div>
 
         <div className="info-section">
-          <h2 className="title">Meryl Lounge Chair</h2>
-          <h3 className="price">$149.99</h3>
+          <h2 className="title">{ChosenFurniture.furnitureName}</h2>
+          <h3 className="price">₩{ChosenFurniture.furniturePrice.toLocaleString()}</h3>
           <div className="rating">
             {[...Array(5)].map((_, i) => (
               <StarIcon key={i} sx={{ color: i < 4 ? '#FFD700' : '#ddd', fontSize: 16 }} />
             ))}
-            <span className="rating-text">4.6 / 5.0 (556)</span>
+            <span className="rating-text">4.6 / 5.0</span>
           </div>
 
-          <p className="description">
-            The gently curved lines accentuated by sewn details are kind to your body and pleasant to look at.
-            Also, there’s a tilt and height-adjusting mechanism that’s built to outlast years of ups and downs.
-          </p>
+          <p className="description">{ChosenFurniture.furnitureDesc}</p>
 
           <div className="quantity-controls">
             <button onClick={() => setQuantity(q => Math.max(1, q - 1))}>-</button>
@@ -209,75 +105,10 @@ const ChosenFurniture: React.FC = () => {
             <button onClick={() => setQuantity(q => q + 1)}>+</button>
           </div>
 
-          <button className="add-button">Add to Cart</button>
+          <button className="add-button" onClick={handleAddToCart}>Add to Cart</button>
           <div className="shipping-note">
             Free 3–5 day shipping · Tool-free assembly · 30-day trial
           </div>
-        </div>
-      </div>
-
-      {/* Customer Reviews Section */}
-      <div className="customer-reviews">
-        <h3>Customer Reviews</h3>
-        {showReviewForm ? (
-          <div className="review-form">
-            <h4>Write Your Review</h4>
-            <div className="star-input">
-              {[...Array(5)].map((_, i) => (
-                <StarIcon
-                  key={i}
-                  sx={{ cursor: 'pointer', color: i < reviewRating ? '#FFD700' : '#ddd', fontSize: 20 }}
-                  onClick={() => setReviewRating(i + 1)}
-                />
-              ))}
-            </div>
-            <textarea
-              value={reviewText}
-              onChange={(e) => setReviewText(e.target.value)}
-              placeholder="Write your review here..."
-              rows={4}
-            />
-            <div className="form-buttons">
-              <button onClick={handleReviewSubmit}>Submit</button>
-              <button onClick={() => setShowReviewForm(false)}>Cancel</button>
-            </div>
-          </div>
-        ) : (
-          <>
-            {reviews.length === 0 ? (
-              <p className="no-reviews">No reviews yet</p>
-            ) : (
-              reviews.map((r, i) => (
-                <div key={i} className="review">
-                  <strong>{r.user}</strong> - {[...Array(5)].map((_, j) => (
-                    <StarIcon key={j} sx={{ color: j < r.rating ? '#FFD700' : '#ddd', fontSize: 16 }} />
-                  ))}
-                  <p>{r.comment}</p>
-                </div>
-              ))
-            )}
-            <button className="write-review-button" onClick={() => setShowReviewForm(true)}>Write a review</button>
-          </>
-        )}
-      </div>
-
-      {/* Related Products Section */}
-      <div className="related-products">
-        <h3>Related Products</h3>
-        <div className="related-grid">
-          {relatedProducts.map((product, idx) => (
-            <div className="related-card" key={idx}>
-              <img src={product.image} alt={product.title} />
-              <h4>{product.title}</h4>
-              <p>{product.price}</p>
-              <div className="related-stars">
-                {[...Array(5)].map((_, i) => (
-                  <StarIcon key={i} sx={{ color: '#ddd', fontSize: 16 }} />
-                ))}
-              </div>
-              <button className="add-to-cart-button">Add to cart</button>
-            </div>
-          ))}
         </div>
       </div>
     </div>

@@ -2,28 +2,25 @@ import { createSlice } from "@reduxjs/toolkit";
 import { HomePageState } from "../../../lib/types/screen";
 
 const initialState: HomePageState = {
-popularDishes: [],
-newDishes: [], 
-topUsers: [],
+popularFurnitures: [],
+comingSoon: [], 
 };
 
 const homePageSlice = createSlice ({
 name: "homePage",
 initialState,
 reducers: {
-    setPopularDishes : (state, action) => {
-        state.popularDishes = action.payload // storeda saqlamoqchi bolgan datamiz keladi
+    setPopularFurnitures : (state, action) => {
+        state.popularFurnitures = action.payload // storeda saqlamoqchi bolgan datamiz keladi
     },
-    setNewDishes : (state, action) => {
-        state.newDishes = action.payload
+    setComingSoon : (state, action) => {
+        state.comingSoon = action.payload
     },
-    setTopUsers : (state, action) => {
-        state.topUsers = action.payload
-    },
+   
 }
 })
 
-export const {setNewDishes, setPopularDishes, setTopUsers} 
+export const {setComingSoon, setPopularFurnitures} 
 = homePageSlice.actions;
 
 const HomePageReducer = homePageSlice.reducer

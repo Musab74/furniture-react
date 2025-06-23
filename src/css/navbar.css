@@ -306,6 +306,7 @@
     margin-top: -30px;
     margin-left: -20px;
     height: auto;
+    width: 100px;
     border-radius: 16px;
     background: lightgray 22.222px 21.799px / 66.269% 68.57% no-repeat, rgba(241, 241, 241, 0.60);
     backdrop-filter: blur(28px);

@@ -11,14 +11,13 @@ export interface AppRootState {
 }
 //HOMEPAGE
 export interface HomePageState {
-    popularDishes: Furniture[];
-    newDishes: Furniture[];
-    topUsers: Member[];
+    comingSoon: Furniture[];
+    popularFurnitures: Furniture[];
 }
 
 //furniture PAGE
 export interface furniturePageState {
-    restaurant: Member | null;
+    store: Member | null;
     furnitures:Furniture[];
     chosenfurniture:Furniture | null;
     

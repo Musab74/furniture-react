@@ -1,48 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { serverApi } from "../../../lib/config";
+import { Furniture } from "../../../lib/types/furniture";
 
 
-const products = [
-  {
-    name: "LED Work Lamp",
-    price: "$40",
-    image: "/img/black-chair.png",
-  },
-  {
-    name: "FEJKA Potted Plant",
-    price: "$24",
-    image: "https://i.ibb.co/TmDHd2P/plant.png",
-  },
-  {
-    name: "FEJKA Potted Plant",
-    price: "$80",
-    image: "https://i.ibb.co/M87fVmy/chair.png",
-  },
-  {
-    name: "MICKE Desk, Black",
-    price: "$120",
-    image: "https://i.ibb.co/YRjRmDc/desk.png",
-  },
-];
+const ComingSoonFurnitures = () => {
+  const [Furnitures, setFurnitures] = useState<Furniture[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-const BestSellingProducts = () => {
+  useEffect(() => {
+    // Fetch coming soon Furnitures from backend
+    axios
+      .get(`${serverApi}/furniture/coming?limit=4`)
+      .then((response) => {
+        setFurnitures(response.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError("Failed to load Furnitures.");
+        setLoading(false);
+        console.error("Error fetching coming soon Furnitures:", err);
+      });
+  }, []);
+
+  if (loading) {
+    return <div>Loading Furnitures...</div>;
+  }
+  
+  if (error) {
+    return <div>{error}</div>;
+  }
+
   return (
     <section className="bsp-section">
-      <h2 className="bsp-title">Cooming soon ...</h2>
+      <h2 className="bsp-title">Coming Soon ...</h2>
       <div className="bsp-products">
-        {products.map((product, index) => (
-          <div className="bsp-card" key={index}>
-            <img src={product.image} alt={product.name} className="bsp-img" />
-            <h4 className="bsp-name">{product.name}</h4>
-            <p className="bsp-price">{product.price}</p>
-            <div className="bsp-stars">
-            </div>
+        {Furnitures.map((Furniture) => (
+          <div className="bsp-card" key={Furniture._id}>
+            <img
+              src={`${serverApi}/${Furniture.furnitureImages[0]}`}
+              alt={Furniture.furnitureName}
+              className="bsp-img"
+            />
+            <h4 className="bsp-name">{Furniture.furnitureName}</h4>
+            <p className="bsp-price">${Furniture.furniturePrice}</p>
+            <div className="bsp-stars">{/* You can add stars if needed */}</div>
           </div>
         ))}
       </div>
-      <div className="bsp-more">
-      </div>
+      <div className="bsp-more">{/* Optional more Furnitures link */}</div>
     </section>
   );
 };
 
-export default BestSellingProducts;
+export default ComingSoonFurnitures;

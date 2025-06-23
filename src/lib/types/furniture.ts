@@ -1,4 +1,4 @@
-import { ObjectId } from "mongodb";
+
 import {
     FurnitureCollection,
     FurnitureStatus,
@@ -7,9 +7,10 @@ import {
 } from "../enums/furniture.enum";
 
 export interface Furniture {
-    _id: ObjectId;
+    _id: string;
     furnitureStatus: FurnitureStatus;
     furnitureCollection: FurnitureCollection;
+    furnitureRanking:number;
     furnitureName: string;
     furniturePrice: number;
     furnitureLeftCount: number;
@@ -34,7 +35,8 @@ export interface FurnitureInput {
 }
 
 export interface FurnitureUpdateInput {
-    _id: ObjectId;
+    _id: string
+    ;
     furnitureStatus?: FurnitureStatus;
     furnitureCollection?: FurnitureCollection;
     furnitureName?: string;

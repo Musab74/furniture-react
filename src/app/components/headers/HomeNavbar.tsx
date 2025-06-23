@@ -42,7 +42,7 @@ export function HomeNavbar(props: HomeNavbarProps) {
         const getRandomFurnitures = async () => {
             try {
                 const response = await axios.get(`${serverApi}/furniture/random`);
-                setFeaturedFurnitures(response.data.furnitures); // Adjust if backend format is different
+                setFeaturedFurnitures(response.data.furnitures); 
             } catch (error) {
                 console.error("Failed to fetch random furnitures:", error);
             }
@@ -90,7 +90,7 @@ export function HomeNavbar(props: HomeNavbarProps) {
                             onRemove={onRemove}
                         />
 
-<Menu
+                        <Menu
                             anchorEl={anchorEl}
                             id="account-menu"
                             open={Boolean(anchorEl)}
@@ -125,8 +125,8 @@ export function HomeNavbar(props: HomeNavbarProps) {
                             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}                        >
                             <MenuItem
-                            onClick={handleLogoutRequest}
-                            
+                                onClick={handleLogoutRequest}
+
                             >
                                 <ListItemIcon>
                                     <Logout fontSize="small" style={{ color: 'blue' }} />
@@ -188,9 +188,9 @@ export function HomeNavbar(props: HomeNavbarProps) {
                         <Typography className="featured-title">Featured</Typography>
 
                         {featuredFurnitures.map((item) => (
-                            <Box className="featured-card" key={item._id}>
-                                <img
-                                    src={`${serverApi}/${item.furnitureImages}`}
+                            <Box className="featured-card" key={item._id.toString()}>
+                                <img className="featured-item-img"
+                                    src={`${serverApi}/${item.furnitureImages && item.furnitureImages.length > 0 ? item.furnitureImages[0] : 'default-image.png'}`}
                                     alt={item.furnitureName}
                                 />
                                 <Typography className="featured-item-name">

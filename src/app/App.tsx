@@ -84,7 +84,10 @@ function App() {
     />)}
       <Switch>
         <Route path="/furnitures">
-          <FurnituresPage />
+          <FurnituresPage
+             onAdd = {onAdd}
+
+          />
         </Route>
         <Route path="/orders">
           <OrdersPage />
