@@ -1,6 +1,6 @@
 import { serverApi } from "../../lib/config";
 import axios from "axios";
-import { Furniture, FurnitureInquiry } from "../../lib/types/furnitures";
+import { Furniture, FurnitureInquiry } from "../../lib/types/furniture";
 
 class FurnitureService {
   static getFurnitures(arg0: { page: number; limit: number; order: string; furnitureCollection: import("../../lib/enums/furniture.enum").FurnitureCollection; }) {
