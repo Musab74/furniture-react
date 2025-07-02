@@ -89,13 +89,8 @@ export default function ProcessOrders(props:ProcessOrderProps) {
                             {/* Summary Section */}
                             <Box className="total-price-box">
                                 <Box className="box-total">
-                                    <p>Product price</p>
-                                    <p>${order.orderTotal - order.orderDelivery}</p>
-                                    <img src="/icons/plus.svg" style={{ marginLeft: "20px" }} />
-                                    <p>Delivery cost</p>
-                                    <p>${order.orderDelivery}</p>
-                                    <img src="/icons/pause.svg" style={{ marginLeft: "20px" }} />
-                                    <p>Total</p>
+                                    <p>Furniture price</p>
+                        
                                     <p>${order.orderTotal}</p>
                                 </Box>
                                 <p className="data-compl">

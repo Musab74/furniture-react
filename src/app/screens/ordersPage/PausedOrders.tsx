@@ -13,6 +13,7 @@ import { useGlobals } from "../../hooks/useGlobals";
 import OrderService from "../../services/ordersService";
 import { Order, OrderItem, OrderUpdateInput } from "../../../lib/types/order";
 import { Furniture } from "../../../lib/types/furniture";
+import moment from "moment";
 
 /** REDUX SLICE & SELECTOR */
 const pausedOrdersRetriever = createSelector(
@@ -21,49 +22,49 @@ const pausedOrdersRetriever = createSelector(
 );
 
 interface PausedOrdersProps {
-    setValue: (input:string) => void;
+    setValue: (input: string) => void;
 }
 
-export default function PausedOrders(props:PausedOrdersProps) {
-    const {setValue} = props;
-    const {authMember, setOrderBuilder} = useGlobals();
+export default function PausedOrders(props: PausedOrdersProps) {
+    const { setValue } = props;
+    const { authMember, setOrderBuilder } = useGlobals();
     const { pausedOrders } = useSelector(pausedOrdersRetriever);
 
     // Handlers
-    const deleteOrderHandler = async (e:T) => {
-try {
-    if(!authMember ) throw Error(Messages.error2)
-    const orderId = e.target.value;
-    const input:OrderUpdateInput = {
-        orderId: orderId,
-        orderStatus:OrderStatus.CANCELLED,
-    };
-
-    const confirmation = window.confirm("Do you want to delete order");
-    if(confirmation) {
-        const order = new OrderService();
-        await order.updateOrder(input);
-        //Order rebuild 
-        setOrderBuilder(new Date());
-    }
-} catch (err) {
-    sweetErrorHandling(err).then();
-}
-    }
-
-    const processOrderHandler = async (e:T) => {
+    const deleteOrderHandler = async (e: T) => {
         try {
-            if(!authMember ) throw Error(Messages.error2)
-                //PAYMENT
+            if (!authMember) throw Error(Messages.error2)
+            const orderId = e.target.value;
+            const input: OrderUpdateInput = {
+                orderId: orderId,
+                orderStatus: OrderStatus.CANCELLED,
+            };
+
+            const confirmation = window.confirm("Do you want to delete order");
+            if (confirmation) {
+                const order = new OrderService();
+                await order.updateOrder(input);
+                //Order rebuild 
+                setOrderBuilder(new Date());
+            }
+        } catch (err) {
+            sweetErrorHandling(err).then();
+        }
+    }
+
+    const processOrderHandler = async (e: T) => {
+        try {
+            if (!authMember) throw Error(Messages.error2)
+            //PAYMENT
 
             const orderId = e.target.value;
-            const input:OrderUpdateInput = {
+            const input: OrderUpdateInput = {
                 orderId: orderId,
-                orderStatus:OrderStatus.PROCESSING,
+                orderStatus: OrderStatus.PROCESSING,
             };
-        
+
             const confirmation = window.confirm("Do you want to proceed with payment");
-            if(confirmation) {
+            if (confirmation) {
                 const order = new OrderService();
                 await order.updateOrder(input);
                 //Order rebuild 
@@ -73,7 +74,8 @@ try {
             }
         } catch (err) {
             sweetErrorHandling(err).then();
-        }}
+        }
+    }
 
     return (
         <TabPanel value="1">
@@ -86,51 +88,47 @@ try {
                                     const furniture: Furniture = order.furnitureDate.filter(
                                         (ele: Furniture) => item.furnitureId === ele._id
                                     )[0];
- const imagePath =
-                                    furniture?.furnitureImages?.[0]
-                                      ? `${serverApi}/${furniture.furnitureImages[0]}`
-                                      : "/img/bedroom.png";                                    return (
-                                        <Box key={item._id} className="orders-name-price">
-                                            <img
-                                                src={imagePath}
-                                                className="order-dish-img"
-                                            />
-                                            <p className="title-dish">{furniture.furnitureName}</p>
-                                            <Box className="price-box">
-                                                <p>{"$" + item.itemPrice}</p>                                      
-                                                <img src="/icons/close.svg" />
-                                                <p>${item.itemQuantity}</p>                                    
-                                                    <img    src="/icons/pause.svg"
-                                                />
-                                                <p
-                                                 style={{ marginLeft: "15px" }}
-                                                >${item.itemQuantity * item.itemPrice}</p>
-                                            </Box>
-                                        </Box>
-                                    );
+                                    console.log(order.furnitureDate, "furniture in process order");
+
+                                    const imagePath =
+                                        furniture?.furnitureImages?.[0]
+                                            ? `${serverApi}/${furniture.furnitureImages[0]}`
+                                            : "/img/bedroom.png"; return (
+                                                <Box key={item._id} className="orders-name-price">
+                                                    <img
+                                                        src={imagePath}
+                                                        className="order-dish-img"
+                                                    />
+                                                    <p className="title-dish">{furniture.furnitureName}</p>
+                                                    <Box className="price-box">
+                                                        <p>{"$" + item.itemPrice}</p>
+                                                        <img src="/icons/close.svg" />
+                                                        <p>${item.itemQuantity}</p>
+                                                        <img src="/icons/pause.svg"
+                                                        />
+                                                        <p
+                                                            style={{ marginLeft: "15px" }}
+                                                        >${item.itemQuantity * item.itemPrice}</p>
+                                                    </Box>
+                                                </Box>
+                                            );
                                 })}
                             </Box>
 
                             <Box className="total-price-box">
                                 <Box className="box-total">
-                                    <p>Product price</p>
-                                    <p>${order.orderTotal - order.orderDelivery}</p>
-                                    <img
-                                        src="/icons/plus.svg"
-                                        style={{ marginLeft: "20px" }}
-                                    />
-                                    <p>Delivery cost</p>
-                                    <p>${order.orderDelivery}</p>
-                                    <img
-                                        src="/icons/pause.svg"
-                                        style={{ marginLeft: "20px" }}
-                                    />
-                                    <p>Total</p>
-                                    <p>${order.orderTotal}</p>
+                                    <Box className="box-total">
+                                        <p>Furniture price</p>
+
+                                        <p>${order.orderTotal}</p>
+                                    </Box>
+                                    <p className="data-compl">
+                                        {moment().format("YY-MM-DD HH:mm")}
+                                    </p>
                                 </Box>
 
                                 <Button
-                                value= {order._id}
+                                    value={order._id}
                                     variant="contained"
                                     color="secondary"
                                     className="cancel-button"
@@ -140,8 +138,8 @@ try {
                                 </Button>
 
                                 <Button
-                                value= {order._id}
-                                onClick={processOrderHandler}
+                                    value={order._id}
+                                    onClick={processOrderHandler}
                                     variant="contained"
                                     className="pay-button"
                                 >

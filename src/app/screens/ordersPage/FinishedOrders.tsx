@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { serverApi } from "../../../lib/config";
 import { Furniture } from "../../../lib/types/furniture";
 import { Order, OrderItem } from "../../../lib/types/order";
+import moment from "moment";
 
 /** REDUX SLICE & SELECTOR */
 const finishedOrdersRetriever = createSelector(
@@ -38,10 +39,10 @@ export default function FinishedOrders() {
                                             />
                                             <p className="title-dish">{furniture.furnitureName}</p>
                                             <Box className="price-box">
-                                            <p>{"$" + item.itemPrice}</p>                                      
-                                            <img src={"/icons/close.svg"} />
-                                            <p>${item.itemQuantity}</p>                                    
-                                            <img src={"/icons/pause.svg"} />
+                                                <p>{"$" + item.itemPrice}</p>
+                                                <img src={"/icons/close.svg"} />
+                                                <p>${item.itemQuantity}</p>
+                                                <img src={"/icons/pause.svg"} />
                                                 <p style={{ marginLeft: "15px" }}>${item.itemQuantity * item.itemPrice}</p>
                                             </Box>
                                         </Box>
@@ -52,40 +53,33 @@ export default function FinishedOrders() {
                             <Box className="total-price-box">
                                 <Box className="box-total">
                                     <p>Furniture price</p>
-                                    <p>${order.orderTotal - order.orderDelivery}</p>
-                                    <img
-                                        src={"/icons/plus.svg"}
-                                        style={{ marginLeft: "20px" }}
-                                    />
-                                    <p>Delivery cost</p>
-                                    <p>${order.orderDelivery}</p>
-                                    <img
-                                        src={"/icons/pause.svg"}
-                                        style={{ marginLeft: "20px" }}
-                                    />
-                                    <p>Total</p>
+
                                     <p>${order.orderTotal}</p>
                                 </Box>
+                                <p className="data-compl">
+                                    {moment().format("YY-MM-DD HH:mm")}
+                                </p>
                             </Box>
                         </Box>
-                    );
+                      
+            );
                 })}
 
-                {!finishedOrders || finishedOrders.length === 0 && (
-                    <Box
-                        display="flex"
-                        flexDirection="row"
-                        justifyContent="center"
-                    >
-                        <img
-                            src={"/icons/noimage-list.svg"}
-                            style={{ width: 300, height: 300 }}
-                        />
-                    </Box>
-                )}
+            {!finishedOrders || finishedOrders.length === 0 && (
+                <Box
+                    display="flex"
+                    flexDirection="row"
+                    justifyContent="center"
+                >
+                    <img
+                        src={"/icons/noimage-list.svg"}
+                        style={{ width: 300, height: 300 }}
+                    />
+                </Box>
+            )}
 
 
-            </Stack>
-        </TabPanel>
+        </Stack>
+        </TabPanel >
     );
 }
