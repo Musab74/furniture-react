@@ -1,22 +1,30 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
 import {
-  Fab,
+  Modal,
+  Backdrop,
+  Fade,
   Stack,
   TextField,
+  IconButton,
   InputAdornment,
   Typography,
   Box,
   Divider,
+  Fab,
+  useTheme,
+  Button,
 } from "@mui/material";
+import {
+  Person,
+  Lock,
+  PhoneAndroid,
+  Visibility,
+  VisibilityOff,
+  Login as LoginIcon,
+  PersonAdd as PersonAddIcon,
+} from "@mui/icons-material";
+import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
-import PersonIcon from "@mui/icons-material/Person";
-import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
-import LockIcon from "@mui/icons-material/Lock";
-import LoginIcon from "@mui/icons-material/Login";
 import MemberService from "../../services/memberService";
 import { useGlobals } from "../../hooks/useGlobals";
 import { T } from "../../../lib/types/common";
@@ -44,7 +52,6 @@ const ModalImg = styled.img`
   height: auto;
   border-radius: 12px;
   object-fit: cover;
-  margin-right: 32px;
 `;
 
 interface AuthenticationModalProps {
@@ -55,11 +62,12 @@ interface AuthenticationModalProps {
 }
 
 export default function AuthenticationModal(props: AuthenticationModalProps) {
-  const { signupOpen, loginOpen, handleSignupClose } = props;
+  const { signupOpen, loginOpen, handleSignupClose, handleLoginClose } = props;
   const classes = useStyles();
   const [memberNick, setMemberNick] = useState<string>("");
   const [memberPhone, setMemberPhone] = useState<string>("");
   const [memberPassword, setMemberPassword] = useState<string>("");
+  const [showPassword, setShowPassword] = useState(false);
   const { setAuthMember } = useGlobals();
 
   const handleUsername = (e: T) => setMemberNick(e.target.value);
@@ -67,7 +75,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
   const handlePassword = (e: T) => setMemberPassword(e.target.value);
 
   const handlePasswordKeyDown = (e: T) => {
-    if (e.key === "Enter") handleSignUpRequest();
+    if (e.key === "Enter") handleLoginRequest();
   };
 
   const handleSignUpRequest = async () => {
@@ -95,77 +103,203 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
     }
   };
 
-  return (
-    <Modal
-      open={signupOpen}
-      onClose={handleSignupClose}
-      className={classes.modal}
-      closeAfterTransition
-      BackdropComponent={Backdrop}
-      BackdropProps={{ timeout: 500 }}
-    >
-      <Fade in={signupOpen}>
-        <Box className={classes.paper} display="flex" width="800px">
-          <ModalImg src="/img/auth.jpeg" alt="signup visual" />
-          <Stack spacing={2} sx={{ width: "100%", maxWidth: 340 }}>
-            <Typography variant="h5" fontWeight={600} textAlign="center" mb={1}>
-              Create Account
-            </Typography>
-            <Divider sx={{ mb: 2 }} />
+  const handleLoginRequest = async () => {
+    try {
+      if (!memberNick || !memberPassword)
+        throw new Error(Messages.error3);
 
-            <TextField
-              label="Username"
-              variant="outlined"
-              fullWidth
-              onChange={handleUsername}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <PersonIcon color="action" />
-                  </InputAdornment>
-                ),
+      const loginInput: LoginInput = {
+        memberNick,
+        memberPassword,
+      };
+
+      const member = new MemberService();
+      const result = await member.login(loginInput);
+      setAuthMember(result);
+      handleLoginClose();
+    } catch (err) {
+      console.log("error", err);
+      handleLoginClose();
+      sweetErrorHandling(Messages.error1).then();
+    }
+  };
+
+  return (
+    <div>
+      {/* Sign Up Modal */}
+      <Modal
+        open={signupOpen}
+        onClose={handleSignupClose}
+        className={classes.modal}
+        closeAfterTransition
+      >
+        <Fade in={signupOpen}>
+          <Box className={classes.paper} display="flex" width="800px">
+            <ModalImg 
+          
+            src="/img/auth.jpeg" alt="signup" />
+            <Stack spacing={2} sx={{paddingLeft:1, width: "100%", maxWidth: 340 }}>
+              <Typography
+                variant="h5"
+                fontWeight={700}
+                color="primary"
+                textAlign="center"
+              >
+                Create Account
+              </Typography>
+              <Divider />
+              <TextField
+                label="Username"
+                variant="outlined"
+                fullWidth
+                onChange={handleUsername}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Person color="action" />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <TextField
+                label="Phone Number"
+                variant="outlined"
+                fullWidth
+                onChange={handlePhone}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <PhoneAndroid color="action" />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <TextField
+                label="Password"
+                type={showPassword ? "text" : "password"}
+                variant="outlined"
+                fullWidth
+                onChange={handlePassword}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Lock color="action" />
+                    </InputAdornment>
+                  ),
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={() => setShowPassword(!showPassword)}>
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSignUpRequest}
+                startIcon={<PersonAddIcon />}
+                sx={{
+                  mt: 2,
+                  fontWeight: "bold",
+                  py: 1,
+                  textTransform: "none",
+                  '&:hover': { bgcolor: "primary.dark", transform: "scale(1.03)" }
+                }}
+              >
+                Sign Up
+              </Button>
+            </Stack>
+          </Box>
+        </Fade>
+      </Modal>
+
+      {/* Login Modal */}
+      <Modal
+        open={loginOpen}
+        onClose={handleLoginClose}
+        className={classes.modal}
+        closeAfterTransition
+      >
+        <Fade in={loginOpen}>
+          <Box className={classes.paper} display="flex" width="700px">
+            <ModalImg 
+        
+            src="/img/auth.jpeg" alt="login" />
+            <Stack
+              spacing={2}
+              sx={{
+                marginLeft: "40px",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "100%",
               }}
-            />
-            <TextField
-              label="Phone Number"
-              variant="outlined"
-              fullWidth
-              onChange={handlePhone}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <PhoneAndroidIcon color="action" />
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <TextField
-              label="Password"
-              variant="outlined"
-              type="password"
-              fullWidth
-              onChange={handlePassword}
-              onKeyDown={handlePasswordKeyDown}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <LockIcon color="action" />
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <Fab
-              variant="extended"
-              color="primary"
-              sx={{ mt: 2, width: "100%" }}
-              onClick={handleSignUpRequest}
             >
-              <LoginIcon sx={{ mr: 1 }} />
-              Sign Up
-            </Fab>
-          </Stack>
-        </Box>
-      </Fade>
-    </Modal>
+              <Typography
+                variant="h5"
+                fontWeight={700}
+                color="primary"
+                textAlign="center"
+              >
+                Login
+              </Typography>
+              <Divider />
+              <TextField
+                label="Username"
+                variant="outlined"
+                fullWidth
+                onChange={handleUsername}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Person color="action" />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <TextField
+                label="Password"
+                variant="outlined"
+                type={showPassword ? "text" : "password"}
+                fullWidth
+                onChange={handlePassword}
+                onKeyDown={handlePasswordKeyDown}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Lock color="action" />
+                    </InputAdornment>
+                  ),
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={() => setShowPassword(!showPassword)}>
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleLoginRequest}
+                endIcon={<LoginIcon />}
+                sx={{
+                  mt: 2,
+                  fontWeight: "bold",
+                  py: 1,
+                  width: "100%",
+                  textTransform: "none",
+                  '&:hover': { bgcolor: "primary.dark", transform: "scale(1.03)" }
+                }}
+              >
+                Login
+              </Button>
+            </Stack>
+          </Box>
+        </Fade>
+      </Modal>
+    </div>
   );
 }

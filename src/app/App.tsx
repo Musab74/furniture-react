@@ -46,7 +46,7 @@ function App() {
     await sweetTopSuccessAlert("Succes", 700)
     setAuthMember(null);
   } catch (err) {
-    console.log("error",err);
+    console.log("error on logout",err);
     sweetErrorHandling(Messages.error1).then();
     
   }
