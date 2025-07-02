@@ -1,14 +1,15 @@
-import { Box, Stack } from "@mui/material";
-import Container from "@mui/material/Container";
-import React, { useEffect, useState } from "react";
-import { useLocation, useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState, ChangeEvent } from "react";
+import { Stack, Pagination, PaginationItem } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Furniture } from "../../../lib/types/furniture";
+import { CartItem } from "../../../lib/types/search";
 import FurnitureService from "../../services/ProductService";
 import { serverApi } from "../../../lib/config";
+import { useHistory } from "react-router-dom";
 
-// Room category definition
-
+// Room categories
+type RoomCategory = "BEDROOM" | "LIVING_ROOM" | "DINING_ROOM" | "OFFICE" | "OUTDOOR";
 
 const categories: { label: string; value: RoomCategory | "ALL"; img: string }[] = [
   { label: "All", value: "ALL", img: "/img/all.png" },
@@ -19,66 +20,70 @@ const categories: { label: string; value: RoomCategory | "ALL"; img: string }[] 
   { label: "Outdoor", value: "OUTDOOR", img: "/img/outdoor.png" },
 ];
 
-type RoomCategory = "BEDROOM" | "LIVING_ROOM" | "DINING_ROOM" | "OFFICE" | "OUTDOOR";
+// Props
+interface FurnituresProps {
+  onAdd: (item: CartItem) => void;
+}
 
-const FurnitureList: React.FC = () => {
+const Furnitures: React.FC<FurnituresProps> = ({ onAdd }) => {
+  const [furnitures, setFurnitures] = useState<Furniture[]>([]);
   const [filter, setFilter] = useState<RoomCategory | "ALL">("ALL");
-  const [furnitureData, setFurnitureData] = useState<Furniture[]>([]);
-  const location = useLocation();
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const itemsPerPage = 10;
   const history = useHistory();
-  const dispatch = useDispatch();
-  const queryParams = new URLSearchParams(location.search);
-  const collection = queryParams.get("collection") as RoomCategory | null;
 
   useEffect(() => {
-    const fetchFurniture = async () => {
+    const fetchFurnitures = async () => {
       try {
         const service = new FurnitureService();
-        const response = await service.getFurnitures({
-          page: 1,
-          limit: 20,
-          order: "createdAt",
-        });
-        setFurnitureData(response);
-        if (collection) setFilter(collection);
-      } catch (error) {
-        console.error("Error fetching furniture:", error);
+        const result = await service.getFurnitures({ page: 1, limit: 100, order: "price" });
+        setFurnitures(result);
+      } catch (err) {
+        console.error("Error fetching furnitures:", err);
       }
     };
-    fetchFurniture();
-  }, [collection]);
+    fetchFurnitures();
+  }, []);
 
+  // Filter furniture
   const filteredFurniture =
     filter === "ALL"
-      ? furnitureData
-      : furnitureData.filter((item) => item.furnitureCollection === filter);
+      ? furnitures
+      : furnitures.filter((item) => item.furnitureCollection === filter);
 
-  const handleAddToCart = (item: Furniture) => {
-    dispatch(
-      addToCart({
-        _id: item._id,
-        name: item.furnitureName,
-        image: item.furnitureImages[0],
-        quantity: 1,
-        price: item.furniturePrice,
-      })
-    );
-  };
+  // Paginate filtered furniture
+  const paginatedFurniture = filteredFurniture.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+  const totalPages = Math.ceil(filteredFurniture.length / itemsPerPage);
 
+  // Handlers
   const handleCardClick = (id: string) => {
     history.push(`/furnitures/${id}`);
+  };
+
+  const handlePagination = (e: ChangeEvent<unknown>, value: number) => {
+    setCurrentPage(value);
+  };
+
+  const handleCategoryChange = (value: RoomCategory | "ALL") => {
+    setFilter(value);
+    setCurrentPage(1); // Reset to first page when filter changes
   };
 
   return (
     <div className="furniture-list-container">
       <h2 className="section-title">Furnitures</h2>
 
+      {/* Category Menu */}
       <div className="category-menu">
         {categories.map((cat) => (
           <div
             key={cat.value}
             className={`category-item ${filter === cat.value ? "active" : ""}`}
-            onClick={() => setFilter(cat.value)}
+            onClick={() => handleCategoryChange(cat.value)}
           >
             <img src={cat.img} alt={cat.label} />
             <span>{cat.label}</span>
@@ -86,8 +91,9 @@ const FurnitureList: React.FC = () => {
         ))}
       </div>
 
+      {/* Furniture Grid */}
       <div className="furniture-grid">
-        {filteredFurniture.map((item) => (
+        {paginatedFurniture.map((item) => (
           <div key={item._id} className="furniture-card">
             <img
               src={`${serverApi}/${item.furnitureImages[0]}`}
@@ -96,35 +102,48 @@ const FurnitureList: React.FC = () => {
               style={{ cursor: "pointer" }}
             />
             <h3>{item.furnitureName}</h3>
-            <p className="price">₩{item.furniturePrice.toLocaleString()}</p>
+            <p className="price">${item.furniturePrice.toLocaleString()}</p>
             <div className="stars">
               {"★".repeat(item.furnitureRanking)}
               {"☆".repeat(5 - item.furnitureRanking)}
             </div>
-            <button onClick={() => handleAddToCart(item)}>Add to Cart</button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onAdd({
+                  _id: item._id,
+                  name: item.furnitureName,
+                  image: item.furnitureImages[0],
+                  quantity: 1,
+                  price: item.furniturePrice,
+                });
+              }}
+            >
+              Add to Cart
+            </button>
           </div>
         ))}
       </div>
 
-      <div className="address">
-        <Container>
-          <Stack className="address-area">
-            <Box className="title">Our address</Box>
-            <iframe
-              style={{ marginTop: "60px" }}
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26078.425809920423!2d129.06004480000001!3d35.21137005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35689386d85735e5%3A0x30705de360d66384!2sGeumgang%20Park!5e0!3m2!1sen!2skr!4v1745417113716!5m2!1sen!2skr"
-              height="500"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
-          </Stack>
-        </Container>
-      </div>
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <Stack className="pagination-section" spacing={2}>
+          <Pagination
+            page={currentPage}
+            count={totalPages}
+            onChange={handlePagination}
+            renderItem={(item) => (
+              <PaginationItem
+                slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
+                {...item}
+                color="secondary"
+              />
+            )}
+          />
+        </Stack>
+      )}
     </div>
   );
 };
 
-export default FurnitureList;
-function addToCart(arg0: { _id: string; name: string; image: string; quantity: number; price: number; }): any {
-  throw new Error("Function not implemented.");
-}
-
+export default Furnitures;

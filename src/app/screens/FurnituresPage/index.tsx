@@ -21,11 +21,13 @@ export default function FurnituresPage(props:FurnituresPageProps) {
         <div className="products-page">
             <Switch>
                 <Route path={`${furniture.path}/:furnitureId`}>
-                    <ProductDetailPage onAdd={onAdd}></ProductDetailPage>
+                    <ProductDetailPage
+                     onAdd={onAdd}
+                     ></ProductDetailPage>
                 </Route> 
                 <Route path={`${furniture.path}`}>
                     <Furnitures 
-                    // onAdd={onAdd}
+                    onAdd={onAdd}
                      />
                 </Route>
             </Switch>

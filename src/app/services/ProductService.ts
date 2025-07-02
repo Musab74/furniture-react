@@ -12,7 +12,7 @@ class FurnitureService {
     this.path = serverApi;
   }
 
-  public async getFurnitures(input: FurnitureInquiry): Promise<Furniture[]> {
+  public async getFurnitures(input: FurnitureInquiry,): Promise<Furniture[]> {
     try {
       const url = `${this.path}/furniture/all?order=${input.order}&page=${input.page}&limit=${input.limit}`;
       const result = await axios.get(url);
@@ -24,16 +24,19 @@ class FurnitureService {
     }
   }
 
-  public async getFurniture(furnitureId:string):Promise<Furniture> {
-    try {
-      const url = `${this.path}/furniture/${furnitureId}`;
-      const result = await axios.get(url, {withCredentials: true});
-      return result.data;
-    } catch (err) {
-      console.log("Error, getFurniture:", err);
-      throw err;
-    }
+  public async getFurniture(furnitureId: string): Promise<Furniture> {
+  try {
+    const url = `${this.path}/furniture/${furnitureId}`;
+    console.log("Fetching furniture from:", url);
+    const result = await axios.get(url, { withCredentials: true });
+    console.log("Furniture data received:", result.data);
+    return result.data;
+  } catch (err) {
+    console.log("Error, getFurniture:", err);
+    throw err;
   }
+}
+
     
 
     public async getComingSoon(limit = 4): Promise<Furniture[]> {

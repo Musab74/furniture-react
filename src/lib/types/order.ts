@@ -6,7 +6,7 @@ export interface OrderItem {
     itemQuantity:number;
     itemPrice: number;
     orderId: string;
-    productId: string;
+    furnitureId: string;
     createAt:Date;
     updatedAt:Date;
 }

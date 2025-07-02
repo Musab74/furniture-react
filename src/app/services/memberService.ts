@@ -12,16 +12,14 @@ class MemberService {
   public async getStore(): Promise<Member> {
     try {
       const url = this.path + "/member/store";
-      const result = await axios.get(url);
-      console.log("getTopUsers", result);
-
-
-      return result.data
+      const result = await axios.get(url, { withCredentials: true });
+      return result.data;
     } catch (err) {
-      console.log("Error, getProduct:", err);
+      console.log("Error, getStore:", err);
       throw err;
     }
   }
+  
 
   public async signup(input: MemberInput): Promise<Member> {
     try {
@@ -97,6 +95,9 @@ class MemberService {
 
     }
   }
+
+  
+  
 
 
 }

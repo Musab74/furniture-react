@@ -1,292 +1,328 @@
 .order-page {
-    width: 100%;
-    height: auto;
-    background: #E8F5E9; /* Very light green background */
-    display: flex;
-  }
-  
-  .order-page .order-container {
-    margin-top: 50px;
-    margin-bottom: 50px;
-    display: flex;
-    align-items: flex-start;
-    flex-direction: row;
-  }
-  
-  .order-page .order-left {
-    width: 860px;
-    height: auto;
-  }
-  
-  .order-page .order-right {
-    width: 100%;
-    height: auto;
-    margin-top: 136px;
-    margin-left: 40px;
-    display: flex;
-    flex-direction: column;
-    align-self: self-end;
-  }
-  
-  .order-info-box {
-    margin-top: 75px;
-    border-radius: 16px;
-    padding: 20px;
-    background: #F0FDF4; /* Lighter, almost white green background for boxes */
-    box-shadow: 15px 14px 4px rgba(0, 0, 0, 0.15),
-      inset -1px 0px 16px 13px rgba(76, 175, 80, 0.2); /* Green tinted inset shadow */
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .member-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .order-user-img {
-    position: relative;
-    width: 100px;
-    height: 100px;
-  }
-  
-  .order-user-avatar {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 4px solid #66BB6A; /* Green border */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  }
-  
-  .order-user-icon-box {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 24px;
-    height: 24px;
-    background-color: #4CAF50; /* Primary green for the icon background */
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-  
-  .order-user-prof-img {
-    width: 18px;
-    height: 18px;
-    filter: brightness(0) invert(1); /* Makes the icon white on green background */
-  }
-  
-  .order-user-name {
-    font-size: 18px;
-    font-weight: 600;
-    color: #333;
-  }
-  
-  .order-user-prof {
-    font-size: 14px;
-    font-weight: 400;
-    color: #616161; /* Slightly darker gray for better contrast */
-  }
-  
-  .liner {
-    width: 80%;
-    height: 1px;
-    background: #B2DFDB; /* Light teal-green divider */
-    margin: 15px 0;
-  }
-  
-  .order-user-address {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    color: #555;
-  }
-  
-  .payment-info-box {
-    border-radius: 16px;
-    padding: 20px;
-    background: #F0FDF4; /* Lighter, almost white green background for boxes */
-    box-shadow: 15px 14px 4px rgba(0, 0, 0, 0.15),
-      inset -1px 0px 16px 13px rgba(76, 175, 80, 0.2); /* Green tinted inset shadow */
-    margin-top: 20px;
-  }
-  
-  .payment-input {
-    margin-bottom: 12px;
-  }
-  
-  .payment-input-field {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #A5D6A7; /* Light green border for inputs */
-    border-radius: 8px;
-    font-size: 14px;
-  }
-  
-  .payment-input-row {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-  
-  .payment-input-half {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #A5D6A7; /* Light green border for inputs */
-    border-radius: 8px;
-    font-size: 14px;
-  }
-  
-  .payment-methods {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 15px;
-  }
-  
-  .payment-method-icon {
-    width: 40px;
-    height: auto;
-    /* You might want to tint these icons green if they are vector graphics */
-  }
-  
-  /* Main Order Box */
-  .order-main-box {
-    border-radius: 16px;
-    width: 100%;
-    background: #F0FDF4; /* Lighter, almost white green background for boxes */
-    box-shadow: 15px 14px 4px rgba(0, 0, 0, 0.15),
-      inset -1px 0px 16px 13px rgba(76, 175, 80, 0.2); /* Green tinted inset shadow */
-    padding: 20px;
-    margin-bottom: 20px;
-  }
-  
-  /* Scrollable Dish List */
-  .order-main-box .order-box-scroll {
-    max-height: 250px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 20px;
-  }
-  
-  /* Dish Line */
-  .order-main-box .orders-name-price {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  /* Dish Image */
-  .order-main-box .order-dish-img {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
-    object-fit: cover;
-    margin-right: 10px;
-  }
-  
-  /* Dish Name */
-  .order-main-box .title-dish {
-    flex: 1;
-    font-size: 16px;
-    font-weight: 600;
-    color: #333;
-  }
-  
-  /* Price Box */
-  .order-main-box .price-box {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  /* Total Price and Buttons Container */
-  .order-main-box .total-price-box {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  
-  /* Subsection for prices */
-  .order-main-box .box-total {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  
-  /* Cancel Button */
-  .order-main-box .cancel-button {
-    background-color: #EF5350 !important; /* A distinct soft red for cancel */
-    color: #ffffff !important;
-    border-radius: 8px !important;
-    padding: 8px 16px !important;
-    text-transform: none !important;
-    box-shadow: none !important;
-  }
-  
-  /* Payment Button */
-  .order-main-box .pay-button {
-    background-color: #4CAF50 !important; /* Primary green for payment */
-    color: #ffffff !important;
-    border-radius: 8px !important;
-    padding: 8px 16px !important;
-    text-transform: none !important;
-    box-shadow: none !important;
-  }
-  
-  /* Nice Scrollbar for Order List */
-  .order-main-box .order-box-scroll::-webkit-scrollbar {
-    width: 6px;
-  }
-  
-  .order-main-box .order-box-scroll::-webkit-scrollbar-thumb {
-    background-color: #A5D6A7; /* Light green scrollbar thumb */
-    border-radius: 6px;
-  }
-  
-  .order-main-box .box-total {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    font-size: 14px;
-    color: #555;
-  }
-  
-  /* Date Completion */
-  .order-main-box .data-compl {
-    font-size: 14px;
-    color: #888;
-  }
-  
-  /* Verify Button */
-  .order-main-box .verify-button {
-    background-color: #4CAF50 !important; /* Primary green for verify button */
-    color: #ffffff !important;
-    border-radius: 8px !important;
-    padding: 8px 16px !important;
-    text-transform: none !important;
-    box-shadow: none !important;
-  }
-  
-  .order-main-box .process-order-main-box .order-box-scroll::-webkit-scrollbar {
-    width: 6px;
-  }
-  
-  .order-main-box .order-box-scroll::-webkit-scrollbar-thumb {
-    background-color: #A5D6A7; /* Light green scrollbar thumb */
-    border-radius: 6px;
-  }
+  width: 100%;
+  height: auto;
+  background: #fafafa; /* Light gray/white background */
+  display: flex;
+  transition: background-color 0.3s ease;
+}
+
+.order-page:hover {
+  background: #f0f0f0;
+}
+
+.order-page .order-container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+}
+
+.order-page .order-left {
+  width: 860px;
+  height: auto;
+}
+
+.order-page .order-right {
+  width: 100%;
+  height: auto;
+  margin-top: 136px;
+  margin-left: 40px;
+  display: flex;
+  flex-direction: column;
+  align-self: self-end;
+}
+
+.order-info-box,
+.payment-info-box,
+.order-main-box {
+  border-radius: 16px;
+  padding: 20px;
+  background: #ffffff; /* Pure white for boxes */
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.05),
+    inset 0 0 15px 10px rgba(165, 214, 167, 0.15); /* subtle green inset */
+  margin-bottom: 20px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.order-info-box:hover,
+.payment-info-box:hover,
+.order-main-box:hover {
+  box-shadow:
+    0 8px 24px rgba(76, 175, 80, 0.25),
+    inset 0 0 20px 15px rgba(76, 175, 80, 0.3);
+  transform: translateY(-6px);
+  cursor: default;
+}
+
+.member-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.order-user-img {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  transition: transform 0.3s ease;
+}
+
+.order-user-img:hover {
+  transform: scale(1.08);
+}
+
+.order-user-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #81C784; /* lighter green border */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.order-user-icon-box {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 24px;
+  height: 24px;
+  background-color: #66BB6A; /* lighter green */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.order-user-prof-img {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) invert(1);
+}
+
+.order-user-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2e2e2e; /* dark gray */
+}
+
+.order-user-prof {
+  font-size: 14px;
+  font-weight: 400;
+  color: #757575; /* medium gray */
+}
+
+.liner {
+  width: 80%;
+  height: 1px;
+  background: #C8E6C9; /* very soft green divider */
+  margin: 15px 0;
+}
+
+.order-user-address {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #616161;
+}
+
+/* Payment Inputs */
+.payment-input,
+.payment-input-row {
+  margin-bottom: 12px;
+}
+
+.payment-input-field,
+.payment-input-half {
+  width: 100%;
+  padding: 10px;
+  border: 1.5px solid #C8E6C9; /* very soft green border */
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+  background: #fefefe;
+}
+
+.payment-input-field:focus,
+.payment-input-half:focus {
+  border-color: #4CAF50; /* primary green on focus */
+  outline: none;
+}
+
+/* Payment Input Row */
+.payment-input-row {
+  display: flex;
+  gap: 10px;
+}
+
+/* Payment Methods */
+.payment-methods {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.payment-method-icon {
+  width: 40px;
+  height: auto;
+  filter: grayscale(70%);
+  transition: filter 0.3s ease;
+}
+
+.payment-method-icon:hover {
+  filter: none;
+  cursor: pointer;
+}
+
+/* Scrollable Dish List */
+.order-main-box .order-box-scroll {
+  max-height: 250px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding-right: 6px;
+}
+
+/* Custom scrollbar */
+.order-main-box .order-box-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.order-main-box .order-box-scroll::-webkit-scrollbar-thumb {
+  background-color: #A5D6A7; /* soft green scrollbar */
+  border-radius: 6px;
+}
+
+/* Dish Line */
+.orders-name-price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  background: #fafafa;
+  cursor: pointer;
+}
+
+.orders-name-price:hover {
+  background-color: #e8f5e9; /* soft green highlight */
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
+}
+
+/* Dish Image */
+.order-dish-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.order-dish-img:hover {
+  transform: scale(1.1);
+}
+
+/* Dish Name */
+.title-dish {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2e2e2e;
+  user-select: none;
+}
+
+/* Price Box */
+.price-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+
+.price-box img {
+  filter: grayscale(70%);
+  width: 16px;
+  height: 16px;
+}
+
+/* Total Price and Buttons Container */
+.total-price-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Subsection for prices */
+.box-total {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Buttons */
+.cancel-button,
+.pay-button,
+.verify-button {
+  border-radius: 8px !important;
+  padding: 8px 16px !important;
+  text-transform: none !important;
+  box-shadow: none !important;
+  font-weight: 600;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Cancel Button */
+.cancel-button {
+  background-color: #e57373 !important; /* softer red */
+  color: #fff !important;
+}
+
+.cancel-button:hover {
+  background-color: #d32f2f !important;
+  box-shadow: 0 4px 10px rgba(211, 47, 47, 0.6);
+}
+
+/* Payment Button */
+.pay-button {
+  background-color: #81C784 !important; /* lighter green */
+  color: #fff !important;
+}
+
+.pay-button:hover {
+  background-color: #388E3C !important;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.7);
+}
+
+/* Verify Button */
+.verify-button {
+  background-color: #66BB6A !important;
+  color: #fff !important;
+}
+
+.verify-button:hover {
+  background-color: #2e7d32 !important;
+  box-shadow: 0 4px 14px rgba(76, 175, 80, 0.8);
+}
+
+/* Date Completion */
+.data-compl {
+  font-size: 14px;
+  color: #999;
+  user-select: none;
+}

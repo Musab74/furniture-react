@@ -6,7 +6,7 @@ import { Order } from "./order";
 
 export interface AppRootState {
     homepage:HomePageState;
-    furniturePage: furniturePageState;
+    furniturePage: furnituresPageState;
     ordersPage: OrdersPageState;
 }
 //HOMEPAGE
@@ -16,7 +16,7 @@ export interface HomePageState {
 }
 
 //furniture PAGE
-export interface furniturePageState {
+export interface furnituresPageState {
     store: Member | null;
     furnitures:Furniture[];
     chosenfurniture:Furniture | null;

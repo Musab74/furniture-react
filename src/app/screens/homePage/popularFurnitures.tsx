@@ -11,6 +11,7 @@ import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
 import { CssVarsProvider } from "@mui/joy/styles";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { AttachMoney } from "@mui/icons-material";
 
 export default function PopularFurnitures() {
   const furnitures: Furniture[] = useSelector(retrievePopularFurnitures) || [];
@@ -47,7 +48,7 @@ export default function PopularFurnitures() {
                             bottom: 0,
                             left: 0,
                             right: 0,
-                            backgroundColor: "rgba(0, 0, 0, 0.6)",
+                            backgroundColor: "rgba(133, 196, 15, 0.6)",
                             color: "#fff",
                             display: "flex",
                             justifyContent: "center",
@@ -59,9 +60,9 @@ export default function PopularFurnitures() {
                           }}
                         >
                           <Typography sx={{ fontWeight: "bold" }}>
-                            {furniture.furnitureViews}
+                            {furniture.furniturePrice}
                           </Typography>
-                          <VisibilityIcon sx={{ fontSize: 20 }} />
+                          <AttachMoney sx={{ fontSize: 20 }} />
                         </Box>
                       </CardCover>
 

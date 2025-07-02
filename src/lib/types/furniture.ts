@@ -10,6 +10,7 @@ export interface Furniture {
     image: string;
     price: number;
     _id: string;
+    name:string;
     furnitureStatus: FurnitureStatus;
     furnitureCollection: FurnitureCollection;
     furnitureRanking:number;

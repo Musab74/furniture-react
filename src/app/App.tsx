@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
-import { RippleBadge } from "./MaterialTheme/styled";
-import { Link, Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import HomePage from "./screens/homePage";
 import { HomeNavbar } from "./components/headers/HomeNavbar";
 import Footer from "./components/footer";

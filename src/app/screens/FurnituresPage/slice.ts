@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { furniturePageState } from "../../../lib/types/screen";
+import { furnituresPageState } from "../../../lib/types/screen";
 
-const initialState: furniturePageState = {
+const initialState: furnituresPageState = {
     store: null,
     chosenfurniture:null,
     furnitures: [],

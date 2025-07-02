@@ -45,11 +45,9 @@ const ComingSoonFurnitures = () => {
             />
             <h4 className="bsp-name">{Furniture.furnitureName}</h4>
             <p className="bsp-price">${Furniture.furniturePrice}</p>
-            <div className="bsp-stars">{/* You can add stars if needed */}</div>
           </div>
         ))}
       </div>
-      <div className="bsp-more">{/* Optional more Furnitures link */}</div>
     </section>
   );
 };

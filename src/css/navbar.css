@@ -354,7 +354,7 @@
 
 .other-navbar {
     width: 100%;
-    height: 400px;
+    height: 230px;
     display: flex;
     background: url('/public/img/bannerOther.jpg');
     background-size: cover;
