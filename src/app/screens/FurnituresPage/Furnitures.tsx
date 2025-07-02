@@ -2,13 +2,15 @@ import React, { useEffect, useState, ChangeEvent } from "react";
 import { Stack, Pagination, PaginationItem } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import InventoryIcon from "@mui/icons-material/Inventory";
 import { Furniture } from "../../../lib/types/furniture";
 import { CartItem } from "../../../lib/types/search";
 import FurnitureService from "../../services/ProductService";
 import { serverApi } from "../../../lib/config";
 import { useHistory } from "react-router-dom";
-
-// Room categories
+ import { useLocation } from "react-router-dom";
+ 
 type RoomCategory = "BEDROOM" | "LIVING_ROOM" | "DINING_ROOM" | "OFFICE" | "OUTDOOR";
 
 const categories: { label: string; value: RoomCategory | "ALL"; img: string }[] = [
@@ -20,15 +22,20 @@ const categories: { label: string; value: RoomCategory | "ALL"; img: string }[] 
   { label: "Outdoor", value: "OUTDOOR", img: "/img/outdoor.png" },
 ];
 
-// Props
 interface FurnituresProps {
   onAdd: (item: CartItem) => void;
 }
 
 const Furnitures: React.FC<FurnituresProps> = ({ onAdd }) => {
   const [furnitures, setFurnitures] = useState<Furniture[]>([]);
-  const [filter, setFilter] = useState<RoomCategory | "ALL">("ALL");
-  const [currentPage, setCurrentPage] = useState<number>(1);
+ 
+
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const initialCollection = (queryParams.get("collection") || "ALL") as RoomCategory | "ALL";
+  
+  const [filter, setFilter] = useState<RoomCategory | "ALL">(initialCollection);
+    const [currentPage, setCurrentPage] = useState<number>(1);
 
   const itemsPerPage = 10;
   const history = useHistory();
@@ -46,20 +53,17 @@ const Furnitures: React.FC<FurnituresProps> = ({ onAdd }) => {
     fetchFurnitures();
   }, []);
 
-  // Filter furniture
   const filteredFurniture =
     filter === "ALL"
       ? furnitures
       : furnitures.filter((item) => item.furnitureCollection === filter);
 
-  // Paginate filtered furniture
   const paginatedFurniture = filteredFurniture.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
   const totalPages = Math.ceil(filteredFurniture.length / itemsPerPage);
 
-  // Handlers
   const handleCardClick = (id: string) => {
     history.push(`/furnitures/${id}`);
   };
@@ -70,7 +74,7 @@ const Furnitures: React.FC<FurnituresProps> = ({ onAdd }) => {
 
   const handleCategoryChange = (value: RoomCategory | "ALL") => {
     setFilter(value);
-    setCurrentPage(1); // Reset to first page when filter changes
+    setCurrentPage(1);
   };
 
   return (
@@ -95,18 +99,20 @@ const Furnitures: React.FC<FurnituresProps> = ({ onAdd }) => {
       <div className="furniture-grid">
         {paginatedFurniture.map((item) => (
           <div key={item._id} className="furniture-card">
-            <img
-              src={`${serverApi}/${item.furnitureImages[0]}`}
-              alt={item.furnitureName}
-              onClick={() => handleCardClick(item._id)}
-              style={{ cursor: "pointer" }}
-            />
+            <div className="card-img-wrapper" onClick={() => handleCardClick(item._id)}>
+              <img
+                src={`${serverApi}/${item.furnitureImages[0]}`}
+                alt={item.furnitureName}
+                className="furniture-image"
+              />
+              <div className="stock-overlay">
+                <InventoryIcon fontSize="small" />
+                <span>{item.furnitureLeftCount} left</span>
+              </div>
+            </div>
+
             <h3>{item.furnitureName}</h3>
             <p className="price">${item.furniturePrice.toLocaleString()}</p>
-            <div className="stars">
-              {"★".repeat(item.furnitureRanking)}
-              {"☆".repeat(5 - item.furnitureRanking)}
-            </div>
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -119,6 +125,7 @@ const Furnitures: React.FC<FurnituresProps> = ({ onAdd }) => {
                 });
               }}
             >
+              <AddShoppingCartIcon style={{ marginRight: 6 }} />
               Add to Cart
             </button>
           </div>
@@ -139,7 +146,7 @@ const Furnitures: React.FC<FurnituresProps> = ({ onAdd }) => {
                 color="secondary"
               />
             )}
-          />
+          /> 
         </Stack>
       )}
     </div>

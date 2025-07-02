@@ -1,116 +1,157 @@
 .furniture-list-container {
-    padding: 40px 20px;
-    text-align: center;
-    background-color: #f8f9fa;
-  }
-  
-  .section-title {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 30px;
-  }
-  
-  .category-menu {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-  }
-  
-  .category-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    opacity: 0.8;
-  }
-  
-  .category-item img {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-    border-radius: 80%;
-  }
-  
-  .category-item span {
-    margin-top: 8px;
-    font-weight: 500;
-    font-size: 14px;
-    color: #333;
-  }
-  
-  .category-item:hover,
-  .category-item.active {
-    opacity: 1;
-    transform: scale(1.3);
-  }
-  
-  .furniture-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 25px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .furniture-card {
-    background-color: #fff;
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-    transition: transform 0.3s ease;
-  }
-  
-  .furniture-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .furniture-card img {
-    width: 100%;
-    height: 150px;
-    object-fit: contain;
-    margin-bottom: 10px;
-    border-radius: 0%;
-  }
-  
-  .furniture-card h3 {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 10px;
-  }
-  
-  .price {
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: #222;
-  }
-  
-  button {
-    background-color: #ffa500;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    font-weight: 500;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #ff8c00;
-  }
-  .address {
-    background-color: #fff;
-    padding: 60px 0;
-    margin-top: 60px;
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #f8f9fa;
 }
 
-.address-area .title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-align: center;
+.section-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.category-menu {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.8;
+}
+
+.category-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 80%;
+}
+
+.category-item span {
+  margin-top: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  color: #333;
+}
+
+.category-item:hover,
+.category-item.active {
+  opacity: 1;
+  transform: scale(1.3);
+}
+
+.furniture-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.furniture-card {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 330px; /* Equal height for all cards */
+}
+
+.furniture-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.furniture-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  border-radius: 12px;
+}
+
+.card-img-wrapper:hover .furniture-image {
+  transform: scale(1.05);
+}
+
+.stock-overlay {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background-color: rgba(76, 175, 80, 0.85);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card-img-wrapper:hover .stock-overlay {
+  opacity: 1;
+}
+
+.furniture-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 12px 0 6px;
+  min-height: 48px; /* Reserve space even for short titles */
+}
+
+.furniture-card .price {
+  font-weight: 600;
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 12px;
+  min-height: 24px;
+}
+
+.furniture-card button {
+  margin-top: auto;
+  background-color: #ffa500;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  min-height: 36px;
+}
+
+
+.furniture-card button:hover {
+  background-color: #ff8c00;
+}
+
+.pagination-section {
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
 }
 
 /* Chosen Product */

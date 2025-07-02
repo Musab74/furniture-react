@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Container, ListItemIcon, Menu, MenuItem, Stack, Typography } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import AnalogClock from "./AnalogClock";
 import Basket from "./Basket";
 import { useGlobals } from "../../hooks/useGlobals";
@@ -164,13 +164,20 @@ export function HomeNavbar(props: HomeNavbarProps) {
                     <Stack className="detail">
                         <Box className="signup" />
                         {!authMember && (
-                            <Button
-                                variant="contained"
-                                className="signup-button"
-                                onClick={() => setSignUpOpen(true)}
-                            >
-                                Sign Up
-                            </Button>
+                           <Button
+                           variant="outlined"
+                           className="signup-button"
+                           onClick={() => setSignUpOpen(true)}
+                           sx={{
+                             backgroundColor: '#85c40f', // replace with your main green
+                             '&:hover': {
+                               backgroundColor: '#76b10d', // darker shade for hover
+                             },
+                           }}
+                         >
+                           Sign Up
+                         </Button>
+                         
                         )}
                     </Stack>
 
@@ -203,7 +210,7 @@ export function HomeNavbar(props: HomeNavbarProps) {
                         ))}
 
                         <Button className="featured-more-button" variant="contained">
-                            More Product
+                         <Link to={"/furnitures"}>   More Product </Link>
                         </Button>
                     </Box>
                 </Stack>

@@ -45,7 +45,7 @@ export function OtherNavbar(props: OtherNavbarProps) {
                             <NavLink to="/" activeClassName={"underline"}>Home</NavLink>
                         </Box>
                         <Box className={"hover-line"}>
-                            <NavLink to="/furniture" activeClassName={"underline"}>Furniture</NavLink>
+                            <NavLink to="/furnitures" activeClassName={"underline"}>Furnitures</NavLink>
                         </Box>
                         {authMember ? (
                             <Box className={"hover-line"}>
@@ -59,7 +59,7 @@ export function OtherNavbar(props: OtherNavbarProps) {
                         ) : null}
 
                         <Box className={"hover-line"}>
-                            <NavLink to="/about" activeClassName={"underline"}>Reviews</NavLink>
+                            <NavLink to="/reviews" activeClassName={"underline"}>Reviews</NavLink>
                         </Box>
 
                         <Basket cartItems={cartItems}

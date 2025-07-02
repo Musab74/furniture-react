@@ -5,7 +5,6 @@ import { HomeNavbar } from "./components/headers/HomeNavbar";
 import Footer from "./components/footer";
 import '../css/app.css';
 import '../css/navbar.css';
-import '../css/footer.css'
 import FurnituresPage from "./screens/FurnituresPage";
 import UserPage from "./screens/userPage";
 import OrdersPage from "./screens/ordersPage";
