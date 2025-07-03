@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { retrievePopularFurnitures } from "./selector";
 import { serverApi } from "../../../lib/config";
 import { Furniture } from "../../../lib/types/furniture";
-
 import { Box, Container, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 import Card from "@mui/joy/Card";
